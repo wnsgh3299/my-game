@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>COIN FLIP</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    height: 100vh;
+
+    background:
+        radial-gradient(
+            circle,
+            #263b63,
+            #111827 55%,
+            #070b13
+        );
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+.game {
+
+    width: 800px;
+
+    max-width: 95%;
+
+    height: 600px;
+
+    text-align: center;
+}
+
+
+/* 제목 */
+
+h1 {
+
+    margin-top: 45px;
+
+    font-size: 50px;
+
+    letter-spacing: 6px;
+
+    text-shadow:
+        0 0 20px #3b82f6,
+        0 0 40px #3b82f6;
+}
+
+
+.subtitle {
+
+    color: #aab8d0;
+
+    margin-bottom: 30px;
+}
+
+
+/* 동전 */
+
+.coin-area {
+
+    height: 250px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    perspective: 1000px;
+}
+
+
+.coin {
+
+    width: 170px;
+
+    height: 170px;
+
+    position: relative;
+
+    transform-style: preserve-3d;
+}
+
+
+.side {
+
+    position: absolute;
+
+    width: 170px;
+
+    height: 170px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff4a3,
+            #eabf38 45%,
+            #a87912
+        );
+
+    border: 8px solid #f7d85b;
+
+    box-shadow:
+
+        0 0 30px
+        rgba(255,214,79,0.7),
+
+        inset 0 0 15px
+        rgba(100,60,0,0.5);
+
+    backface-visibility: hidden;
+}
+
+
+/*
+앞면과 뒷면을
+완전히 똑같이 만든 부분
+*/
+
+.coinMark {
+
+    width: 100px;
+
+    height: 100px;
+
+    border: 5px solid #795b08;
+
+    border-radius: 50%;
+}
+
+
+.coinMark::after {
+
+    content: "●";
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    height: 100%;
+
+    font-size: 40px;
+
+    color: #795b08;
+}
+
+
+.back {
+
+    transform:
+        rotateY(180deg);
+}
+
+
+/* 동전 그림자 */
+
+.shadow {
+
+    width: 150px;
+
+    height: 25px;
+
+    background:
+        rgba(0,0,0,0.4);
+
+    border-radius: 50%;
+
+    filter: blur(8px);
+
+    margin:
+        -5px auto 0;
+}
+
+
+/* 버튼 */
+
+button {
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    border-radius: 14px;
+
+    padding: 16px 40px;
+
+    transition: 0.2s;
+}
+
+
+button:hover {
+
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.15);
+}
+
+
+/* 시작 */
+
+.start-btn {
+
+    margin-top: 20px;
+
+    background: #3b82f6;
+
+    color: white;
+
+    box-shadow:
+        0 0 25px
+        rgba(59,130,246,0.5);
+}
+
+
+/* 선택 버튼 */
+
+.choice-buttons {
+
+    display: none;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-top: 25px;
+}
+
+
+.heads {
+
+    background: #eabf38;
+
+    color: #513d08;
+
+    min-width: 150px;
+}
+
+
+.tails {
+
+    background: #64748b;
+
+    color: white;
+
+    min-width: 150px;
+}
+
+
+/* 결과 */
+
+.result {
+
+    height: 40px;
+
+    margin-top: 15px;
+
+    font-size: 24px;
+
+    font-weight: bold;
+}
+
+
+.success {
+
+    color: #4ade80;
+
+    text-shadow:
+        0 0 15px #22c55e;
+}
+
+
+.fail {
+
+    color: #f87171;
+
+    text-shadow:
+        0 0 15px #ef4444;
+}
+
+
+/* 다시하기 */
+
+.retry {
+
+    display: none;
+
+    margin-top: 15px;
+
+    background: #ef4444;
+
+    color: white;
+}
+
+
+/* 동전 회전 */
+
+.flipping {
+
+    animation:
+        flip 0.18s linear infinite;
+}
+
+
+@keyframes flip {
+
+    from {
+
+        transform:
+            rotateY(0deg);
+
+    }
+
+    to {
+
+        transform:
+            rotateY(180deg);
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="game">
+
+
+    <h1>
+        COIN FLIP
+    </h1>
+
+
+    <div class="subtitle">
+
+        동전이 어느 면으로 떨어졌을까요?
+
+    </div>
+
+
+
+    <!-- 동전 -->
+
+    <div class="coin-area">
+
+        <div
+            class="coin"
+            id="coin">
+
+
+            <!-- 앞면 -->
+
+            <div class="side front">
+
+                <div class="coinMark"></div>
+
+            </div>
+
+
+            <!-- 뒷면 -->
+
+            <div class="side back">
+
+                <div class="coinMark"></div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="shadow"></div>
+
+
+
+    <!-- 결과 -->
+
+    <div
+        class="result"
+        id="result">
+
+    </div>
+
+
+
+    <!-- 시작 버튼 -->
+
+    <button
+        class="start-btn"
+        id="startBtn"
+        onclick="startGame()">
+
+        게임 시작
+
+    </button>
+
+
+
+    <!-- 앞면 / 뒷면 -->
+
+    <div
+        class="choice-buttons"
+        id="choiceButtons">
+
+
+        <button
+            class="heads"
+            onclick="choose('heads')">
+
+            앞면
+
+        </button>
+
+
+        <button
+            class="tails"
+            onclick="choose('tails')">
+
+            뒷면
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- 다시하기 -->
+
+    <button
+        class="retry"
+        id="retryBtn"
+        onclick="restart()">
+
+        다시하기
+
+    </button>
+
+
+</div>
+
+
+
+<script>
+
+
+const coin =
+    document.getElementById("coin");
+
+
+const startBtn =
+    document.getElementById("startBtn");
+
+
+const choiceButtons =
+    document.getElementById("choiceButtons");
+
+
+const result =
+    document.getElementById("result");
+
+
+const retryBtn =
+    document.getElementById("retryBtn");
+
+
+
+let answer = "";
+
+let spinning = false;
+
+
+
+/*
+게임 시작
+*/
+
+function startGame() {
+
+
+    if (spinning)
+        return;
+
+
+    spinning = true;
+
+
+    startBtn.style.display =
+        "none";
+
+
+    choiceButtons.style.display =
+        "none";
+
+
+    retryBtn.style.display =
+        "none";
+
+
+    result.innerText = "";
+
+
+    result.className =
+        "result";
+
+
+
+    /*
+    동전 결과 랜덤 결정
+
+    heads = 앞면
+    tails = 뒷면
+    */
+
+    answer =
+        Math.random() < 0.5
+        ? "heads"
+        : "tails";
+
+
+
+    /*
+    동전 회전 시작
+    */
+
+    coin.classList.add(
+        "flipping"
+    );
+
+
+
+    /*
+    2.5초 동안 회전
+    */
+
+    setTimeout(function() {
+
+
+        coin.classList.remove(
+            "flipping"
+        );
+
+
+
+        /*
+        결과에 따라
+        동전 방향을 결정
+
+        하지만 앞/뒤 모양이
+        똑같기 때문에
+        사용자는 결과를 알 수 없음
+        */
+
+        if (answer === "heads") {
+
+            coin.style.transform =
+                "rotateY(720deg)";
+
+        }
+
+        else {
+
+            coin.style.transform =
+                "rotateY(900deg)";
+
+        }
+
+
+
+        /*
+        동전이 멈춘 뒤
+        1초 기다림
+        */
+
+        setTimeout(function() {
+
+
+            choiceButtons.style.display =
+                "flex";
+
+
+            spinning = false;
+
+
+        }, 1000);
+
+
+    }, 2500);
+
+}
+
+
+
+/*
+앞면 / 뒷면 선택
+*/
+
+function choose(choice) {
+
+
+    choiceButtons.style.display =
+        "none";
+
+
+
+    if (choice === answer) {
+
+
+        result.innerText =
+            "🎉 정답!";
+
+
+        result.className =
+            "result success";
+
+
+    }
+
+    else {
+
+
+        result.innerText =
+            "❌ 실패!";
+
+
+        result.className =
+            "result fail";
+
+    }
+
+
+
+    /*
+    다시하기 버튼
+    */
+
+    setTimeout(function() {
+
+
+        retryBtn.style.display =
+            "inline-block";
+
+
+    }, 500);
+
+}
+
+
+
+/*
+다시하기
+*/
+
+function restart() {
+
+
+    coin.style.transform =
+        "rotateY(0deg)";
+
+
+    result.innerText = "";
+
+
+    result.className =
+        "result";
+
+
+    retryBtn.style.display =
+        "none";
+
+
+    startBtn.style.display =
+        "inline-block";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

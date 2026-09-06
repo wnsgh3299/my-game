@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GAME STUDIO</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #070b16;
+    color: white;
+}
+
+/* 상단 메뉴 */
+
+header {
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8%;
+
+    border-bottom: 1px solid #26314a;
+
+    background: rgba(7, 11, 22, 0.95);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+nav a {
+    color: #aebbd3;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
+nav a:hover {
+    color: white;
+}
+
+
+/* 메인 화면 */
+
+.hero {
+
+    min-height: 430px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #263b63 0%,
+            #111827 45%,
+            #070b16 75%
+        );
+}
+
+.hero h1 {
+
+    font-size: 65px;
+
+    margin: 0;
+
+    letter-spacing: 8px;
+
+    text-shadow:
+        0 0 20px #3b82f6,
+        0 0 40px #3b82f6;
+}
+
+.hero p {
+
+    color: #aebbd3;
+
+    font-size: 18px;
+
+    margin: 20px 0 35px;
+}
+
+
+/* 메인 버튼 */
+
+.main-button {
+
+    padding: 16px 45px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #3b82f6;
+
+    color: white;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 25px rgba(59,130,246,0.5);
+
+    transition: 0.2s;
+}
+
+.main-button:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 0 40px rgba(59,130,246,0.8);
+}
+
+
+/* 게임 목록 */
+
+.games {
+
+    padding: 60px 8%;
+}
+
+.games h2 {
+
+    font-size: 32px;
+
+    margin-bottom: 30px;
+}
+
+.game-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 25px;
+}
+
+
+/* 게임 카드 */
+
+.card {
+
+    background: #111827;
+
+    border: 1px solid #26314a;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    transition: 0.25s;
+}
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.4);
+}
+
+.icon {
+
+    font-size: 55px;
+}
+
+.card h3 {
+
+    font-size: 24px;
+}
+
+.card p {
+
+    color: #9aa8c0;
+
+    line-height: 1.6;
+}
+
+
+/* 게임 버튼 */
+
+.play {
+
+    margin-top: 15px;
+
+    padding: 11px 25px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.play:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.2);
+}
+
+.locked {
+
+    background: #374151;
+
+    cursor: default;
+}
+
+
+/* 하단 */
+
+footer {
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: #65728a;
+
+    border-top: 1px solid #26314a;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- 상단 메뉴 -->
+
+<header>
+
+    <div class="logo">
+        GAME STUDIO
+    </div>
+
+    <nav>
+
+        <a href="#">
+            HOME
+        </a>
+
+        <a href="#games">
+            GAMES
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- 메인 -->
+
+<section class="hero">
+
+    <h1>
+        GAME STUDIO
+    </h1>
+
+    <p>
+        직접 만든 게임을 플레이해보세요.
+    </p>
+
+    <button
+        class="main-button"
+        onclick="location.href='game.html'">
+
+        🪙 COIN FLIP PLAY
+
+    </button>
+
+</section>
+
+
+
+<!-- 게임 목록 -->
+
+<section
+    class="games"
+    id="games">
+
+    <h2>
+        🎮 GAMES
+    </h2>
+
+
+    <div class="game-grid">
+
+
+        <!-- COIN FLIP -->
+
+        <div class="card">
+
+            <div class="icon">
+                🪙
+            </div>
+
+            <h3>
+                COIN FLIP
+            </h3>
+
+            <p>
+                회전하는 동전을 보고
+                앞면인지 뒷면인지 맞혀보세요.
+            </p>
+
+            <button
+                class="play"
+                onclick="location.href='game.html'">
+
+                PLAY GAME
+
+            </button>
+
+        </div>
+
+
+
+        <!-- 준비중 게임 -->
+
+        <div class="card">
+
+            <div class="icon">
+                🚀
+            </div>
+
+            <h3>
+                SPACE RUN
+            </h3>
+
+            <p>
+                새로운 게임을 준비하고 있습니다.
+            </p>
+
+            <button class="play locked">
+
+                COMING SOON
+
+            </button>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="icon">
+                ⚔️
+            </div>
+
+            <h3>
+                BATTLE
+            </h3>
+
+            <p>
+                새로운 게임을 준비하고 있습니다.
+            </p>
+
+            <button class="play locked">
+
+                COMING SOON
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<footer>
+
+    © 2026 GAME STUDIO
+
+</footer>
+
+
+</body>
+</html>
