@@ -1,416 +1,285 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GAME STUDIO</title>
+    <title>GAME STUDIO</title>
 
-<style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        body {
+            background: #070c18;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #070b16;
-    color: white;
-}
+        /* 전체 */
 
-/* 상단 메뉴 */
+        .container {
+            width: 90%;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 110px 0 80px;
+        }
 
-header {
-    height: 75px;
+        /* 제목 */
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        .games-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
 
-    padding: 0 8%;
+        /* 게임 카드 */
 
-    border-bottom: 1px solid #26314a;
+        .games {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
 
-    background: rgba(7, 11, 22, 0.95);
-}
+        .game-card {
+            background: #111a2b;
+            border: 1px solid #263653;
+            border-radius: 17px;
+            padding: 40px 30px 30px;
 
-.logo {
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
+            min-height: 305px;
 
-nav a {
-    color: #aebbd3;
-    text-decoration: none;
-    margin-left: 30px;
-}
+            transition: 0.2s;
+        }
 
-nav a:hover {
-    color: white;
-}
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
 
+        /* 아이콘 */
 
-/* 메인 화면 */
+        .game-icon {
+            font-size: 55px;
+            margin-bottom: 25px;
+        }
 
-.hero {
+        /* 게임 이름 */
 
-    min-height: 430px;
+        .game-card h3 {
+            font-size: 25px;
+            margin-bottom: 25px;
+        }
 
-    display: flex;
-    flex-direction: column;
+        /* 설명 */
 
-    justify-content: center;
-    align-items: center;
+        .game-card p {
+            color: #91a7c5;
+            font-size: 16px;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
 
-    text-align: center;
+        /* 버튼 */
 
-    background:
-        radial-gradient(
-            circle at center,
-            #263b63 0%,
-            #111827 45%,
-            #070b16 75%
-        );
-}
+        .play-button {
+            border: none;
+            border-radius: 8px;
 
-.hero h1 {
+            padding: 11px 26px;
 
-    font-size: 65px;
+            background: #2563eb;
+            color: white;
 
-    margin: 0;
+            font-size: 14px;
+            font-weight: bold;
 
-    letter-spacing: 8px;
+            cursor: pointer;
 
-    text-shadow:
-        0 0 20px #3b82f6,
-        0 0 40px #3b82f6;
-}
+            transition: 0.2s;
+        }
 
-.hero p {
+        .play-button:hover {
+            background: #3b82f6;
+        }
 
-    color: #aebbd3;
+        /* 준비중 버튼 */
 
-    font-size: 18px;
+        .coming-button {
+            background: #3b465a;
+            cursor: default;
+        }
 
-    margin: 20px 0 35px;
-}
+        .coming-button:hover {
+            background: #3b465a;
+        }
 
+        /* 모바일 */
 
-/* 메인 버튼 */
+        @media (max-width: 1000px) {
 
-.main-button {
+            .games {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-    padding: 16px 45px;
+        }
 
-    border: none;
+        @media (max-width: 650px) {
 
-    border-radius: 12px;
+            .container {
+                padding-top: 60px;
+            }
 
-    background: #3b82f6;
+            .games-title {
+                font-size: 28px;
+            }
 
-    color: white;
+            .games {
+                grid-template-columns: 1fr;
+            }
 
-    font-size: 19px;
+            .game-card {
+                min-height: 280px;
+            }
 
-    font-weight: bold;
+        }
 
-    cursor: pointer;
-
-    box-shadow:
-        0 0 25px rgba(59,130,246,0.5);
-
-    transition: 0.2s;
-}
-
-.main-button:hover {
-
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 0 40px rgba(59,130,246,0.8);
-}
-
-
-/* 게임 목록 */
-
-.games {
-
-    padding: 60px 8%;
-}
-
-.games h2 {
-
-    font-size: 32px;
-
-    margin-bottom: 30px;
-}
-
-.game-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(250px, 1fr));
-
-    gap: 25px;
-}
-
-
-/* 게임 카드 */
-
-.card {
-
-    background: #111827;
-
-    border: 1px solid #26314a;
-
-    border-radius: 18px;
-
-    padding: 30px;
-
-    transition: 0.25s;
-}
-
-.card:hover {
-
-    transform: translateY(-8px);
-
-    border-color: #3b82f6;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,0.4);
-}
-
-.icon {
-
-    font-size: 55px;
-}
-
-.card h3 {
-
-    font-size: 24px;
-}
-
-.card p {
-
-    color: #9aa8c0;
-
-    line-height: 1.6;
-}
-
-
-/* 게임 버튼 */
-
-.play {
-
-    margin-top: 15px;
-
-    padding: 11px 25px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background: #2563eb;
-
-    color: white;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.play:hover {
-
-    transform: translateY(-2px);
-
-    filter: brightness(1.2);
-}
-
-.locked {
-
-    background: #374151;
-
-    cursor: default;
-}
-
-
-/* 하단 */
-
-footer {
-
-    text-align: center;
-
-    padding: 30px;
-
-    color: #65728a;
-
-    border-top: 1px solid #26314a;
-}
-
-</style>
-
+    </style>
 </head>
 
 
 <body>
 
+    <div class="container">
 
-<!-- 상단 메뉴 -->
+        <!-- 게임 제목 -->
 
-<header>
-
-    <div class="logo">
-        GAME STUDIO
-    </div>
-
-    <nav>
-
-        <a href="#">
-            HOME
-        </a>
-
-        <a href="#games">
-            GAMES
-        </a>
-
-    </nav>
-
-</header>
+        <h2 class="games-title">
+            🎮 GAMES
+        </h2>
 
 
+        <!-- 게임 목록 -->
 
-<!-- 메인 -->
-
-<section class="hero">
-
-    <h1>
-        GAME STUDIO
-    </h1>
-
-    <p>
-        직접 만든 게임을 플레이해보세요.
-    </p>
-
-    <button
-        class="main-button"
-        onclick="location.href='game.html'">
-
-        🪙 COIN FLIP PLAY
-
-    </button>
-
-</section>
+        <div class="games">
 
 
+            <!-- COIN FLIP -->
 
-<!-- 게임 목록 -->
+            <div class="game-card">
 
-<section
-    class="games"
-    id="games">
+                <div class="game-icon">
+                    🪙
+                </div>
 
-    <h2>
-        🎮 GAMES
-    </h2>
+                <h3>
+                    COIN FLIP
+                </h3>
 
+                <p>
+                    회전하는 동전을 보고 앞면인지 뒷면인지 맞혀보세요.
+                </p>
 
-    <div class="game-grid">
+                <button
+                    class="play-button"
+                    onclick="location.href='game.html'">
 
+                    PLAY GAME
 
-        <!-- COIN FLIP -->
+                </button>
 
-        <div class="card">
-
-            <div class="icon">
-                🪙
             </div>
 
-            <h3>
-                COIN FLIP
-            </h3>
-
-            <p>
-                회전하는 동전을 보고
-                앞면인지 뒷면인지 맞혀보세요.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='game.html'">
-
-                PLAY GAME
-
-            </button>
-
-        </div>
 
 
+            <!-- MINESWEEPER -->
 
-        <!-- 준비중 게임 -->
+            <div class="game-card">
 
-        <div class="card">
+                <div class="game-icon">
+                    💣
+                </div>
 
-            <div class="icon">
-                🚀
+                <h3>
+                    MINESWEEPER
+                </h3>
+
+                <p>
+                    지뢰를 피해 모든 칸을 열어보세요!
+                    다양한 크기의 게임판을 선택할 수 있습니다.
+                </p>
+
+                <button
+                    class="play-button"
+                    onclick="location.href='minesweeper.html'">
+
+                    PLAY GAME
+
+                </button>
+
             </div>
 
-            <h3>
-                SPACE RUN
-            </h3>
-
-            <p>
-                새로운 게임을 준비하고 있습니다.
-            </p>
-
-            <button class="play locked">
-
-                COMING SOON
-
-            </button>
-
-        </div>
 
 
+            <!-- SPACE RUN -->
 
-        <div class="card">
+            <div class="game-card">
 
-            <div class="icon">
-                ⚔️
+                <div class="game-icon">
+                    🚀
+                </div>
+
+                <h3>
+                    SPACE RUN
+                </h3>
+
+                <p>
+                    새로운 게임을 준비하고 있습니다.
+                </p>
+
+                <button
+                    class="play-button coming-button">
+
+                    COMING SOON
+
+                </button>
+
             </div>
 
-            <h3>
-                BATTLE
-            </h3>
 
-            <p>
-                새로운 게임을 준비하고 있습니다.
-            </p>
 
-            <button class="play locked">
+            <!-- BATTLE -->
 
-                COMING SOON
+            <div class="game-card">
 
-            </button>
+                <div class="game-icon">
+                    ⚔️
+                </div>
+
+                <h3>
+                    BATTLE
+                </h3>
+
+                <p>
+                    새로운 게임을 준비하고 있습니다.
+                </p>
+
+                <button
+                    class="play-button coming-button">
+
+                    COMING SOON
+
+                </button>
+
+            </div>
+
 
         </div>
-
 
     </div>
-
-</section>
-
-
-
-<footer>
-
-    © 2026 GAME STUDIO
-
-</footer>
 
 
 </body>
