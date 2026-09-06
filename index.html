@@ -20,11 +20,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-
-/* =========================
-   전체
-========================= */
-
 .container {
     width: 90%;
     max-width: 1400px;
@@ -34,54 +29,38 @@ body {
 
 
 /* =========================
-   메인 선택 화면
+   메인 게임
 ========================= */
 
 .hero {
-
     min-height: 500px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #101a2d,
-            #172746
-        );
+    background: linear-gradient(
+        135deg,
+        #101a2d,
+        #172746
+    );
 
     border: 1px solid #263653;
-
     border-radius: 25px;
 
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
     text-align: center;
 
     padding: 50px 20px;
-
     margin-bottom: 70px;
-
-    transition: 0.3s;
 }
 
-
-/* 메인 아이콘 */
-
 .hero-icon {
-
     font-size: 100px;
-
     margin-bottom: 25px;
 
     animation: float 3s ease-in-out infinite;
-
 }
-
-
-/* 아이콘 움직임 */
 
 @keyframes float {
 
@@ -95,43 +74,27 @@ body {
 
 }
 
-
-/* 메인 제목 */
-
 .hero h1 {
-
     font-size: 52px;
-
     margin-bottom: 15px;
-
 }
-
-
-/* 메인 설명 */
 
 .hero p {
-
     color: #9db1d0;
-
     font-size: 18px;
-
     margin-bottom: 35px;
-
 }
 
 
-/* 게임 시작 버튼 */
+/* 시작 버튼 */
 
 .start-button {
-
     border: none;
 
     background: #2563eb;
-
     color: white;
 
     font-size: 17px;
-
     font-weight: bold;
 
     padding: 15px 40px;
@@ -141,24 +104,11 @@ body {
     cursor: pointer;
 
     transition: 0.2s;
-
 }
 
 .start-button:hover {
-
     background: #3b82f6;
-
     transform: translateY(-3px);
-
-}
-
-
-/* 게임 선택 전 */
-
-.select-text {
-
-    color: #9db1d0;
-
 }
 
 
@@ -167,25 +117,21 @@ body {
 ========================= */
 
 .games-title {
-
     font-size: 32px;
-
     font-weight: bold;
-
     margin-bottom: 30px;
-
 }
 
 
-.games {
+/* 3개씩 배치 */
 
+.games {
     display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
     gap: 24px;
-
 }
 
 
@@ -194,59 +140,47 @@ body {
 ========================= */
 
 .game-card {
-
     background: #111a2b;
 
     border: 1px solid #263653;
 
     border-radius: 18px;
 
-    padding: 35px 30px;
+    padding: 32px 28px;
 
-    min-height: 310px;
+    min-height: 290px;
 
     transition: 0.2s;
 
     text-align: center;
-
 }
 
-
 .game-card:hover {
-
     transform: translateY(-6px);
 
     border-color: #3b82f6;
-
 }
 
 
-/* 카드 아이콘 */
+/* 아이콘 */
 
 .game-icon {
-
-    font-size: 60px;
-
-    margin-bottom: 22px;
-
+    font-size: 55px;
+    margin-bottom: 20px;
 }
 
 
-/* 카드 이름 */
+/* 이름 */
 
 .game-card h3 {
-
-    font-size: 24px;
-
+    font-size: 23px;
     margin-bottom: 15px;
-
 }
 
 
-/* 카드 설명 */
+/* 설명 */
 
 .game-card p {
-
     color: #91a7c5;
 
     font-size: 15px;
@@ -256,14 +190,12 @@ body {
     min-height: 48px;
 
     margin-bottom: 25px;
-
 }
 
 
-/* 선택 버튼 */
+/* 버튼 */
 
 .play-button {
-
     border: none;
 
     background: #2563eb;
@@ -281,43 +213,32 @@ body {
     cursor: pointer;
 
     transition: 0.2s;
-
 }
 
-
 .play-button:hover {
-
     background: #3b82f6;
-
 }
 
 
 /* 선택된 게임 */
 
 .selected {
-
     border-color: #3b82f6;
 
     box-shadow:
         0 0 25px rgba(37, 99, 235, 0.15);
-
 }
 
 
 /* 준비중 */
 
 .coming {
-
     background: #3b465a;
-
     cursor: default;
-
 }
 
 .coming:hover {
-
     background: #3b465a;
-
 }
 
 
@@ -328,10 +249,8 @@ body {
 @media (max-width: 900px) {
 
     .games {
-
         grid-template-columns:
             repeat(2, 1fr);
-
     }
 
 }
@@ -340,48 +259,29 @@ body {
 @media (max-width: 600px) {
 
     .container {
-
         width: 94%;
-
         padding-top: 25px;
-
     }
-
 
     .hero {
-
         min-height: 430px;
-
         margin-bottom: 50px;
-
     }
-
 
     .hero-icon {
-
         font-size: 80px;
-
     }
-
 
     .hero h1 {
-
         font-size: 38px;
-
     }
-
 
     .hero p {
-
         font-size: 15px;
-
     }
 
-
     .games {
-
         grid-template-columns: 1fr;
-
     }
 
 }
@@ -392,13 +292,12 @@ body {
 
 <body>
 
-
 <div class="container">
 
 
-    <!-- =========================
+    <!-- =====================
          메인 화면
-    ========================== -->
+    ====================== -->
 
     <section class="hero" id="hero">
 
@@ -439,9 +338,9 @@ body {
 
 
 
-    <!-- =========================
+    <!-- =====================
          게임 목록
-    ========================== -->
+    ====================== -->
 
     <h2 class="games-title">
 
@@ -453,35 +352,24 @@ body {
     <div class="games">
 
 
-        <!-- =====================
-             COIN FLIP
-        ====================== -->
+        <!-- 1. COIN FLIP -->
 
         <div
             class="game-card"
             id="coinCard">
 
             <div class="game-icon">
-
                 🪙
-
             </div>
 
-
             <h3>
-
                 COIN FLIP
-
             </h3>
 
-
             <p>
-
                 회전하는 동전을 보고
                 앞면인지 뒷면인지 맞혀보세요.
-
             </p>
-
 
             <button
                 class="play-button"
@@ -495,35 +383,24 @@ body {
 
 
 
-        <!-- =====================
-             MINESWEEPER
-        ====================== -->
+        <!-- 2. MINESWEEPER -->
 
         <div
             class="game-card"
             id="mineCard">
 
             <div class="game-icon">
-
                 💣
-
             </div>
 
-
             <h3>
-
                 MINESWEEPER
-
             </h3>
 
-
             <p>
-
                 지뢰를 피해 모든 칸을 열어보세요.
                 다양한 크기를 선택할 수 있습니다.
-
             </p>
-
 
             <button
                 class="play-button"
@@ -537,33 +414,22 @@ body {
 
 
 
-        <!-- =====================
-             SPACE RUN
-        ====================== -->
+        <!-- 3. SPACE RUN -->
 
         <div class="game-card">
 
             <div class="game-icon">
-
                 🚀
-
             </div>
 
-
             <h3>
-
                 SPACE RUN
-
             </h3>
 
-
             <p>
-
-                새로운 게임을
-                준비하고 있습니다.
-
+                우주선을 조종하며
+                장애물을 피해보세요.
             </p>
-
 
             <button
                 class="play-button coming">
@@ -576,33 +442,78 @@ body {
 
 
 
-        <!-- =====================
-             BATTLE
-        ====================== -->
+        <!-- 4. BATTLE -->
 
         <div class="game-card">
 
             <div class="game-icon">
-
                 ⚔️
-
             </div>
 
-
             <h3>
-
                 BATTLE
-
             </h3>
 
-
             <p>
-
-                새로운 게임을
-                준비하고 있습니다.
-
+                다양한 상대와
+                전투를 펼쳐보세요.
             </p>
 
+            <button
+                class="play-button coming">
+
+                COMING SOON
+
+            </button>
+
+        </div>
+
+
+
+        <!-- 5. PUZZLE -->
+
+        <div class="game-card">
+
+            <div class="game-icon">
+                🧩
+            </div>
+
+            <h3>
+                PUZZLE
+            </h3>
+
+            <p>
+                다양한 퍼즐을 풀어
+                최고의 기록에 도전하세요.
+            </p>
+
+            <button
+                class="play-button coming">
+
+                COMING SOON
+
+            </button>
+
+        </div>
+
+
+
+        <!-- 6. RACING -->
+
+        <div class="game-card">
+
+            <div class="game-icon">
+                🏎️
+            </div>
+
+            <h3>
+                RACING
+            </h3>
+
+            <p>
+                빠르게 달리며
+                최고의 기록을 만들어보세요.
+            </p>
 
             <button
                 class="play-button coming">
@@ -622,10 +533,7 @@ body {
 
 <script>
 
-
-/* =========================
-   현재 선택된 게임
-========================= */
+/* 선택된 게임 */
 
 let selectedGame = null;
 
@@ -637,7 +545,6 @@ let selectedGame = null;
 function selectGame(game) {
 
     selectedGame = game;
-
 
     const heroIcon =
         document.getElementById("heroIcon");
@@ -651,7 +558,6 @@ function selectGame(game) {
     const startButton =
         document.getElementById("startButton");
 
-
     const coinCard =
         document.getElementById("coinCard");
 
@@ -662,13 +568,10 @@ function selectGame(game) {
     /* 선택 표시 초기화 */
 
     coinCard.classList.remove("selected");
-
     mineCard.classList.remove("selected");
 
 
-    /* =====================
-       COIN FLIP 선택
-    ====================== */
+    /* COIN FLIP */
 
     if (game === "coin") {
 
@@ -688,9 +591,7 @@ function selectGame(game) {
     }
 
 
-    /* =====================
-       MINESWEEPER 선택
-    ====================== */
+    /* MINESWEEPER */
 
     if (game === "mine") {
 
@@ -710,7 +611,7 @@ function selectGame(game) {
     }
 
 
-    /* 위쪽으로 이동 */
+    /* 메인 화면으로 이동 */
 
     document.getElementById("hero")
         .scrollIntoView({
@@ -734,7 +635,6 @@ function startSelectedGame() {
 
     }
 
-
     if (selectedGame === "mine") {
 
         location.href =
@@ -743,7 +643,6 @@ function startSelectedGame() {
     }
 
 }
-
 
 </script>
 
