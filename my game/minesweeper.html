@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINESWEEPER</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #07111f, #101d33);
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #9caec8;
+    margin-bottom: 30px;
+}
+
+/* 난이도 선택 */
+
+#difficultyScreen {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    padding: 35px 20px;
+}
+
+#difficultyScreen h2 {
+    margin-bottom: 25px;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty {
+    width: 180px;
+    padding: 25px 15px;
+    border: none;
+    border-radius: 18px;
+    background: #182842;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.difficulty:hover {
+    transform: translateY(-5px);
+    background: #243a5e;
+}
+
+.difficulty .emoji {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.difficulty .name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.difficulty .info {
+    display: block;
+    margin-top: 8px;
+    color: #aebdd2;
+}
+
+/* 게임 화면 */
+
+#gameScreen {
+    display: none;
+}
+
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.info-box {
+    background: #182842;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+#board {
+    --size: 8;
+
+    display: grid;
+    grid-template-columns: repeat(var(--size), 1fr);
+
+    width: min(90vw, 700px);
+    height: min(90vw, 700px);
+
+    margin: 0 auto 20px;
+
+    gap: 2px;
+    background: #080f1c;
+    padding: 4px;
+    border-radius: 12px;
+    user-select: none;
+}
+
+.cell {
+    background: #263957;
+    border: none;
+    border-radius: 4px;
+
+    color: white;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    font-size: clamp(10px, 2vw, 20px);
+
+    transition: 0.1s;
+}
+
+.cell:hover {
+    background: #344b6e;
+}
+
+.cell.open {
+    background: #17253a;
+    cursor: default;
+}
+
+.cell.mine {
+    background: #c0392b;
+}
+
+.cell.flag {
+    background: #8b5cf6;
+}
+
+/* 숫자 */
+
+.number-1 {
+    color: #5dade2;
+}
+
+.number-2 {
+    color: #58d68d;
+}
+
+.number-3 {
+    color: #f5b041;
+}
+
+.number-4 {
+    color: #bb8fce;
+}
+
+.number-5 {
+    color: #ec7063;
+}
+
+.number-6 {
+    color: #48c9b0;
+}
+
+.number-7 {
+    color: white;
+}
+
+.number-8 {
+    color: #aaa;
+}
+
+/* 버튼 */
+
+button.action {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin: 5px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button.action:hover {
+    background: #3b82f6;
+}
+
+button.back {
+    background: #334155;
+}
+
+button.back:hover {
+    background: #475569;
+}
+
+#message {
+    min-height: 30px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.help {
+    margin-top: 15px;
+    color: #8fa3bf;
+    font-size: 14px;
+}
+
+/* 작은 화면 */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 32px;
+    }
+
+    #difficultyScreen {
+        padding: 25px 10px;
+    }
+
+    .difficulty {
+        width: 150px;
+    }
+
+    #board {
+        width: 94vw;
+        height: 94vw;
+    }
+
+    .cell {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💣 MINESWEEPER</h1>
+    <p class="subtitle">지뢰를 피해 모든 칸을 열어보세요!</p>
+
+
+    <!-- 난이도 선택 화면 -->
+
+    <div id="difficultyScreen">
+
+        <h2>게임판 크기를 선택하세요</h2>
+
+        <div class="difficulty-buttons">
+
+            <button class="difficulty" onclick="startGame(8, 15)">
+                <span class="emoji">🟢</span>
+                <span class="name">작음</span>
+                <span class="info">8 × 8<br>💣 지뢰 15개</span>
+            </button>
+
+            <button class="difficulty" onclick="startGame(10, 50)">
+                <span class="emoji">🟡</span>
+                <span class="name">보통</span>
+                <span class="info">10 × 10<br>💣 지뢰 50개</span>
+            </button>
+
+            <button class="difficulty" onclick="startGame(20, 100)">
+                <span class="emoji">🔴</span>
+                <span class="name">큼</span>
+                <span class="info">20 × 20<br>💣 지뢰 100개</span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- 실제 게임 화면 -->
+
+    <div id="gameScreen">
+
+        <div class="game-info">
+
+            <div class="info-box">
+                📐 <span id="sizeText">8 × 8</span>
+            </div>
+
+            <div class="info-box">
+                💣 지뢰: <span id="mineText">15</span>
+            </div>
+
+            <div class="info-box">
+                🚩 깃발: <span id="flagText">0</span>
+            </div>
+
+        </div>
+
+        <div id="message"></div>
+
+        <div id="board"></div>
+
+        <button class="action" onclick="restartGame()">
+            🔄 다시하기
+        </button>
+
+        <button class="action back" onclick="showDifficulty()">
+            ↩ 난이도 선택
+        </button>
+
+        <button class="action back" onclick="location.href='index.html'">
+            🏠 메인으로
+        </button>
+
+        <div class="help">
+            PC: 클릭 = 열기 / 우클릭 = 깃발<br>
+            📱 아이패드: 길게 누르기 = 깃발
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let size = 8;
+let mineCount = 15;
+
+let board = [];
+let gameOver = false;
+let flags = 0;
+let opened = 0;
+
+let longPressTimer = null;
+let longPressTriggered = false;
+
+
+/* =========================
+   게임 시작
+========================= */
+
+function startGame(newSize, newMineCount) {
+
+    size = newSize;
+    mineCount = newMineCount;
+
+    document.getElementById("difficultyScreen").style.display = "none";
+    document.getElementById("gameScreen").style.display = "block";
+
+    document.getElementById("sizeText").textContent =
+        size + " × " + size;
+
+    document.getElementById("mineText").textContent =
+        mineCount;
+
+    createGame();
+}
+
+
+/* =========================
+   게임판 만들기
+========================= */
+
+function createGame() {
+
+    board = [];
+    gameOver = false;
+    flags = 0;
+    opened = 0;
+
+    document.getElementById("flagText").textContent = "0";
+    document.getElementById("message").textContent = "";
+
+    const gameBoard = document.getElementById("board");
+
+    gameBoard.innerHTML = "";
+
+    gameBoard.style.setProperty("--size", size);
+
+
+    // 빈 칸 만들기
+
+    for (let r = 0; r < size; r++) {
+
+        board[r] = [];
+
+        for (let c = 0; c < size; c++) {
+
+            board[r][c] = {
+                mine: false,
+                open: false,
+                flag: false,
+                number: 0
+            };
+
+        }
+
+    }
+
+
+    // 지뢰 배치
+
+    let placed = 0;
+
+    while (placed < mineCount) {
+
+        let r = Math.floor(Math.random() * size);
+        let c = Math.floor(Math.random() * size);
+
+        if (!board[r][c].mine) {
+
+            board[r][c].mine = true;
+            placed++;
+
+        }
+
+    }
+
+
+    // 주변 지뢰 숫자 계산
+
+    for (let r = 0; r < size; r++) {
+
+        for (let c = 0; c < size; c++) {
+
+            if (board[r][c].mine) continue;
+
+            let count = 0;
+
+            for (let dr = -1; dr <= 1; dr++) {
+
+                for (let dc = -1; dc <= 1; dc++) {
+
+                    if (dr === 0 && dc === 0) continue;
+
+                    let nr = r + dr;
+                    let nc = c + dc;
+
+                    if (
+                        nr >= 0 &&
+                        nr < size &&
+                        nc >= 0 &&
+                        nc < size &&
+                        board[nr][nc].mine
+                    ) {
+                        count++;
+                    }
+
+                }
+
+            }
+
+            board[r][c].number = count;
+
+        }
+
+    }
+
+
+    // 화면에 칸 만들기
+
+    for (let r = 0; r < size; r++) {
+
+        for (let c = 0; c < size; c++) {
+
+            const cell = document.createElement("button");
+
+            cell.className = "cell";
+
+            cell.dataset.row = r;
+            cell.dataset.col = c;
+
+
+            // PC 클릭
+
+            cell.addEventListener("click", function(e) {
+
+                if (longPressTriggered) {
+
+                    longPressTriggered = false;
+                    return;
+
+                }
+
+                openCell(r, c);
+
+            });
+
+
+            // PC 우클릭
+
+            cell.addEventListener("contextmenu", function(e) {
+
+                e.preventDefault();
+
+                toggleFlag(r, c);
+
+            });
+
+
+            // 아이패드 길게 누르기
+
+            cell.addEventListener("touchstart", function(e) {
+
+                longPressTriggered = false;
+
+                longPressTimer = setTimeout(function() {
+
+                    longPressTriggered = true;
+
+                    toggleFlag(r, c);
+
+                }, 500);
+
+            });
+
+
+            cell.addEventListener("touchend", function(e) {
+
+                clearTimeout(longPressTimer);
+
+            });
+
+
+            cell.addEventListener("touchmove", function(e) {
+
+                clearTimeout(longPressTimer);
+
+            });
+
+
+            gameBoard.appendChild(cell);
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   칸 열기
+========================= */
+
+function openCell(r, c) {
+
+    if (gameOver) return;
+
+    const cell = board[r][c];
+
+    if (cell.open || cell.flag) return;
+
+
+    // 지뢰를 밟음
+
+    if (cell.mine) {
+
+        cell.open = true;
+
+        showBoard();
+
+        gameOver = true;
+
+        document.getElementById("message").textContent =
+            "💥 지뢰를 밟았습니다!";
+
+        return;
+
+    }
+
+
+    // 일반 칸 열기
+
+    reveal(r, c);
+
+    checkWin();
+
+}
+
+
+/* =========================
+   주변 빈칸 자동 열기
+========================= */
+
+function reveal(r, c) {
+
+    if (
+        r < 0 ||
+        r >= size ||
+        c < 0 ||
+        c >= size
+    ) return;
+
+    const cell = board[r][c];
+
+    if (cell.open || cell.flag || cell.mine) return;
+
+    cell.open = true;
+    opened++;
+
+
+    // 숫자가 0이면 주변도 자동으로 열기
+
+    if (cell.number === 0) {
+
+        for (let dr = -1; dr <= 1; dr++) {
+
+            for (let dc = -1; dc <= 1; dc++) {
+
+                if (dr === 0 && dc === 0) continue;
+
+                reveal(r + dr, c + dc);
+
+            }
+
+        }
+
+    }
+
+    showBoard();
+
+}
+
+
+/* =========================
+   깃발
+========================= */
+
+function toggleFlag(r, c) {
+
+    if (gameOver) return;
+
+    const cell = board[r][c];
+
+    if (cell.open) return;
+
+
+    if (cell.flag) {
+
+        cell.flag = false;
+        flags--;
+
+    } else {
+
+        // 지뢰 개수 이상 깃발 못 꽂게 함
+
+        if (flags >= mineCount) return;
+
+        cell.flag = true;
+        flags++;
+
+    }
+
+
+    document.getElementById("flagText").textContent = flags;
+
+    showBoard();
+
+}
+
+
+/* =========================
+   화면 업데이트
+========================= */
+
+function showBoard() {
+
+    const cells = document.querySelectorAll(".cell");
+
+    let index = 0;
+
+
+    for (let r = 0; r < size; r++) {
+
+        for (let c = 0; c < size; c++) {
+
+            const cellData = board[r][c];
+            const element = cells[index];
+
+            element.className = "cell";
+            element.textContent = "";
+
+
+            // 깃발
+
+            if (cellData.flag && !cellData.open) {
+
+                element.classList.add("flag");
+                element.textContent = "🚩";
+
+            }
+
+
+            // 열린 칸
+
+            if (cellData.open) {
+
+                element.classList.add("open");
+
+
+                // 지뢰
+
+                if (cellData.mine) {
+
+                    element.classList.add("mine");
+                    element.textContent = "💣";
+
+                }
+
+
+                // 숫자
+
+                else if (cellData.number > 0) {
+
+                    element.textContent =
+                        cellData.number;
+
+                    element.classList.add(
+                        "number-" + cellData.number
+                    );
+
+                }
+
+            }
+
+            index++;
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   승리 확인
+========================= */
+
+function checkWin() {
+
+    const totalCells = size * size;
+
+    const safeCells = totalCells - mineCount;
+
+
+    if (opened >= safeCells) {
+
+        gameOver = true;
+
+        // 남은 지뢰에 자동으로 깃발 표시
+
+        for (let r = 0; r < size; r++) {
+
+            for (let c = 0; c < size; c++) {
+
+                if (board[r][c].mine) {
+
+                    board[r][c].flag = true;
+
+                }
+
+            }
+
+        }
+
+        flags = mineCount;
+
+        document.getElementById("flagText").textContent =
+            flags;
+
+        showBoard();
+
+        document.getElementById("message").textContent =
+            "🎉 축하합니다! 지뢰를 모두 피했습니다!";
+
+    }
+
+}
+
+
+/* =========================
+   다시하기
+========================= */
+
+function restartGame() {
+
+    createGame();
+
+}
+
+
+/* =========================
+   난이도 선택 화면
+========================= */
+
+function showDifficulty() {
+
+    document.getElementById("gameScreen").style.display =
+        "none";
+
+    document.getElementById("difficultyScreen").style.display =
+        "block";
+
+}
+
+</script>
+
+</body>
+</html>
