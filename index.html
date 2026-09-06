@@ -1,285 +1,751 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GAME STUDIO</title>
+<title>GAME STUDIO</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            background: #070c18;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* 전체 */
+body {
+    background: #070c18;
+    color: white;
+    font-family: Arial, sans-serif;
+}
 
-        .container {
-            width: 90%;
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 110px 0 80px;
-        }
 
-        /* 제목 */
+/* =========================
+   전체
+========================= */
 
-        .games-title {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 50px 0 80px;
+}
 
-        /* 게임 카드 */
 
-        .games {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
+/* =========================
+   메인 선택 화면
+========================= */
 
-        .game-card {
-            background: #111a2b;
-            border: 1px solid #263653;
-            border-radius: 17px;
-            padding: 40px 30px 30px;
+.hero {
 
-            min-height: 305px;
+    min-height: 500px;
 
-            transition: 0.2s;
-        }
+    background:
+        linear-gradient(
+            135deg,
+            #101a2d,
+            #172746
+        );
 
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: #3b82f6;
-        }
+    border: 1px solid #263653;
 
-        /* 아이콘 */
+    border-radius: 25px;
 
-        .game-icon {
-            font-size: 55px;
-            margin-bottom: 25px;
-        }
+    display: flex;
+    flex-direction: column;
 
-        /* 게임 이름 */
+    justify-content: center;
+    align-items: center;
 
-        .game-card h3 {
-            font-size: 25px;
-            margin-bottom: 25px;
-        }
+    text-align: center;
 
-        /* 설명 */
+    padding: 50px 20px;
 
-        .game-card p {
-            color: #91a7c5;
-            font-size: 16px;
-            margin-bottom: 32px;
-            line-height: 1.5;
-        }
+    margin-bottom: 70px;
 
-        /* 버튼 */
+    transition: 0.3s;
+}
 
-        .play-button {
-            border: none;
-            border-radius: 8px;
 
-            padding: 11px 26px;
+/* 메인 아이콘 */
 
-            background: #2563eb;
-            color: white;
+.hero-icon {
 
-            font-size: 14px;
-            font-weight: bold;
+    font-size: 100px;
 
-            cursor: pointer;
+    margin-bottom: 25px;
 
-            transition: 0.2s;
-        }
+    animation: float 3s ease-in-out infinite;
 
-        .play-button:hover {
-            background: #3b82f6;
-        }
+}
 
-        /* 준비중 버튼 */
 
-        .coming-button {
-            background: #3b465a;
-            cursor: default;
-        }
+/* 아이콘 움직임 */
 
-        .coming-button:hover {
-            background: #3b465a;
-        }
+@keyframes float {
 
-        /* 모바일 */
+    0%, 100% {
+        transform: translateY(0);
+    }
 
-        @media (max-width: 1000px) {
+    50% {
+        transform: translateY(-10px);
+    }
 
-            .games {
-                grid-template-columns: repeat(2, 1fr);
-            }
+}
 
-        }
 
-        @media (max-width: 650px) {
+/* 메인 제목 */
 
-            .container {
-                padding-top: 60px;
-            }
+.hero h1 {
 
-            .games-title {
-                font-size: 28px;
-            }
+    font-size: 52px;
 
-            .games {
-                grid-template-columns: 1fr;
-            }
+    margin-bottom: 15px;
 
-            .game-card {
-                min-height: 280px;
-            }
+}
 
-        }
 
-    </style>
+/* 메인 설명 */
+
+.hero p {
+
+    color: #9db1d0;
+
+    font-size: 18px;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* 게임 시작 버튼 */
+
+.start-button {
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    padding: 15px 40px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+.start-button:hover {
+
+    background: #3b82f6;
+
+    transform: translateY(-3px);
+
+}
+
+
+/* 게임 선택 전 */
+
+.select-text {
+
+    color: #9db1d0;
+
+}
+
+
+/* =========================
+   GAMES
+========================= */
+
+.games-title {
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+
+}
+
+
+.games {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 24px;
+
+}
+
+
+/* =========================
+   게임 카드
+========================= */
+
+.game-card {
+
+    background: #111a2b;
+
+    border: 1px solid #263653;
+
+    border-radius: 18px;
+
+    padding: 35px 30px;
+
+    min-height: 310px;
+
+    transition: 0.2s;
+
+    text-align: center;
+
+}
+
+
+.game-card:hover {
+
+    transform: translateY(-6px);
+
+    border-color: #3b82f6;
+
+}
+
+
+/* 카드 아이콘 */
+
+.game-icon {
+
+    font-size: 60px;
+
+    margin-bottom: 22px;
+
+}
+
+
+/* 카드 이름 */
+
+.game-card h3 {
+
+    font-size: 24px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* 카드 설명 */
+
+.game-card p {
+
+    color: #91a7c5;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    min-height: 48px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* 선택 버튼 */
+
+.play-button {
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 11px 28px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+
+.play-button:hover {
+
+    background: #3b82f6;
+
+}
+
+
+/* 선택된 게임 */
+
+.selected {
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 25px rgba(37, 99, 235, 0.15);
+
+}
+
+
+/* 준비중 */
+
+.coming {
+
+    background: #3b465a;
+
+    cursor: default;
+
+}
+
+.coming:hover {
+
+    background: #3b465a;
+
+}
+
+
+/* =========================
+   모바일
+========================= */
+
+@media (max-width: 900px) {
+
+    .games {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .container {
+
+        width: 94%;
+
+        padding-top: 25px;
+
+    }
+
+
+    .hero {
+
+        min-height: 430px;
+
+        margin-bottom: 50px;
+
+    }
+
+
+    .hero-icon {
+
+        font-size: 80px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .hero p {
+
+        font-size: 15px;
+
+    }
+
+
+    .games {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+</style>
 </head>
 
 
 <body>
 
-    <div class="container">
 
-        <!-- 게임 제목 -->
-
-        <h2 class="games-title">
-            🎮 GAMES
-        </h2>
+<div class="container">
 
 
-        <!-- 게임 목록 -->
+    <!-- =========================
+         메인 화면
+    ========================== -->
 
-        <div class="games">
+    <section class="hero" id="hero">
 
+        <div
+            class="hero-icon"
+            id="heroIcon">
 
-            <!-- COIN FLIP -->
-
-            <div class="game-card">
-
-                <div class="game-icon">
-                    🪙
-                </div>
-
-                <h3>
-                    COIN FLIP
-                </h3>
-
-                <p>
-                    회전하는 동전을 보고 앞면인지 뒷면인지 맞혀보세요.
-                </p>
-
-                <button
-                    class="play-button"
-                    onclick="location.href='game.html'">
-
-                    PLAY GAME
-
-                </button>
-
-            </div>
-
-
-
-            <!-- MINESWEEPER -->
-
-            <div class="game-card">
-
-                <div class="game-icon">
-                    💣
-                </div>
-
-                <h3>
-                    MINESWEEPER
-                </h3>
-
-                <p>
-                    지뢰를 피해 모든 칸을 열어보세요!
-                    다양한 크기의 게임판을 선택할 수 있습니다.
-                </p>
-
-                <button
-                    class="play-button"
-                    onclick="location.href='minesweeper.html'">
-
-                    PLAY GAME
-
-                </button>
-
-            </div>
-
-
-
-            <!-- SPACE RUN -->
-
-            <div class="game-card">
-
-                <div class="game-icon">
-                    🚀
-                </div>
-
-                <h3>
-                    SPACE RUN
-                </h3>
-
-                <p>
-                    새로운 게임을 준비하고 있습니다.
-                </p>
-
-                <button
-                    class="play-button coming-button">
-
-                    COMING SOON
-
-                </button>
-
-            </div>
-
-
-
-            <!-- BATTLE -->
-
-            <div class="game-card">
-
-                <div class="game-icon">
-                    ⚔️
-                </div>
-
-                <h3>
-                    BATTLE
-                </h3>
-
-                <p>
-                    새로운 게임을 준비하고 있습니다.
-                </p>
-
-                <button
-                    class="play-button coming-button">
-
-                    COMING SOON
-
-                </button>
-
-            </div>
-
+            🎮
 
         </div>
 
+
+        <h1 id="heroTitle">
+
+            게임을 선택하세요
+
+        </h1>
+
+
+        <p id="heroDescription">
+
+            아래에서 플레이할 게임을 선택해주세요.
+
+        </p>
+
+
+        <button
+            class="start-button"
+            id="startButton"
+            style="display: none;"
+            onclick="startSelectedGame()">
+
+            GAME START
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =========================
+         게임 목록
+    ========================== -->
+
+    <h2 class="games-title">
+
+        🎮 GAMES
+
+    </h2>
+
+
+    <div class="games">
+
+
+        <!-- =====================
+             COIN FLIP
+        ====================== -->
+
+        <div
+            class="game-card"
+            id="coinCard">
+
+            <div class="game-icon">
+
+                🪙
+
+            </div>
+
+
+            <h3>
+
+                COIN FLIP
+
+            </h3>
+
+
+            <p>
+
+                회전하는 동전을 보고
+                앞면인지 뒷면인지 맞혀보세요.
+
+            </p>
+
+
+            <button
+                class="play-button"
+                onclick="selectGame('coin')">
+
+                SELECT
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================
+             MINESWEEPER
+        ====================== -->
+
+        <div
+            class="game-card"
+            id="mineCard">
+
+            <div class="game-icon">
+
+                💣
+
+            </div>
+
+
+            <h3>
+
+                MINESWEEPER
+
+            </h3>
+
+
+            <p>
+
+                지뢰를 피해 모든 칸을 열어보세요.
+                다양한 크기를 선택할 수 있습니다.
+
+            </p>
+
+
+            <button
+                class="play-button"
+                onclick="selectGame('mine')">
+
+                SELECT
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================
+             SPACE RUN
+        ====================== -->
+
+        <div class="game-card">
+
+            <div class="game-icon">
+
+                🚀
+
+            </div>
+
+
+            <h3>
+
+                SPACE RUN
+
+            </h3>
+
+
+            <p>
+
+                새로운 게임을
+                준비하고 있습니다.
+
+            </p>
+
+
+            <button
+                class="play-button coming">
+
+                COMING SOON
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================
+             BATTLE
+        ====================== -->
+
+        <div class="game-card">
+
+            <div class="game-icon">
+
+                ⚔️
+
+            </div>
+
+
+            <h3>
+
+                BATTLE
+
+            </h3>
+
+
+            <p>
+
+                새로운 게임을
+                준비하고 있습니다.
+
+            </p>
+
+
+            <button
+                class="play-button coming">
+
+                COMING SOON
+
+            </button>
+
+        </div>
+
+
     </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   현재 선택된 게임
+========================= */
+
+let selectedGame = null;
+
+
+/* =========================
+   게임 선택
+========================= */
+
+function selectGame(game) {
+
+    selectedGame = game;
+
+
+    const heroIcon =
+        document.getElementById("heroIcon");
+
+    const heroTitle =
+        document.getElementById("heroTitle");
+
+    const heroDescription =
+        document.getElementById("heroDescription");
+
+    const startButton =
+        document.getElementById("startButton");
+
+
+    const coinCard =
+        document.getElementById("coinCard");
+
+    const mineCard =
+        document.getElementById("mineCard");
+
+
+    /* 선택 표시 초기화 */
+
+    coinCard.classList.remove("selected");
+
+    mineCard.classList.remove("selected");
+
+
+    /* =====================
+       COIN FLIP 선택
+    ====================== */
+
+    if (game === "coin") {
+
+        heroIcon.textContent = "🪙";
+
+        heroTitle.textContent =
+            "COIN FLIP";
+
+        heroDescription.textContent =
+            "회전하는 동전을 보고 앞면인지 뒷면인지 맞혀보세요.";
+
+        startButton.style.display =
+            "block";
+
+        coinCard.classList.add("selected");
+
+    }
+
+
+    /* =====================
+       MINESWEEPER 선택
+    ====================== */
+
+    if (game === "mine") {
+
+        heroIcon.textContent = "💣";
+
+        heroTitle.textContent =
+            "MINESWEEPER";
+
+        heroDescription.textContent =
+            "지뢰를 피해 모든 칸을 열어보세요.";
+
+        startButton.style.display =
+            "block";
+
+        mineCard.classList.add("selected");
+
+    }
+
+
+    /* 위쪽으로 이동 */
+
+    document.getElementById("hero")
+        .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+}
+
+
+/* =========================
+   GAME START
+========================= */
+
+function startSelectedGame() {
+
+    if (selectedGame === "coin") {
+
+        location.href =
+            "game.html";
+
+    }
+
+
+    if (selectedGame === "mine") {
+
+        location.href =
+            "minesweeper.html";
+
+    }
+
+}
+
+
+</script>
 
 
 </body>
