@@ -26,32 +26,28 @@ body {
 
 .container {
     width: 92%;
-    max-width: 700px;
+    max-width: 650px;
     text-align: center;
 }
 
 h1 {
-    font-size: 44px;
+    font-size: 42px;
     margin-bottom: 12px;
 }
 
 .description {
     color: #91a7c5;
-    font-size: 16px;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 }
 
-/* 동전 */
 .coin {
     width: 180px;
     height: 180px;
-
-    margin: 0 auto 45px;
+    margin: 0 auto 40px;
 
     border-radius: 50%;
 
     background: #d9a441;
-
     border: 8px solid #f1c75b;
 
     display: flex;
@@ -59,96 +55,84 @@ h1 {
     align-items: center;
 
     font-size: 75px;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,0.4);
 }
 
-/* 회전 */
-.coin.spin {
+.spin {
     animation: spin 2.5s ease-in-out;
 }
 
 @keyframes spin {
-    0% {
+    from {
         transform: rotateY(0deg);
     }
 
-    100% {
+    to {
         transform: rotateY(1800deg);
     }
 }
 
-/* 버튼 */
 button {
     border: none;
-
     border-radius: 10px;
 
     padding: 14px 30px;
-
     margin: 6px;
 
     color: white;
-
     background: #2563eb;
 
     font-size: 16px;
-
     font-weight: bold;
 
     cursor: pointer;
-
-    transition: 0.2s;
 }
 
 button:hover {
     background: #3b82f6;
-    transform: translateY(-2px);
 }
 
-/* 선택 버튼 */
-.choice-buttons {
+/* 앞면 / 뒷면 */
+#choices {
     display: none;
-    margin-top: 10px;
 }
 
 /* 결과 */
-.result {
+#result {
     min-height: 45px;
+    margin-top: 20px;
 
-    margin-top: 25px;
-
-    font-size: 25px;
-
+    font-size: 26px;
     font-weight: bold;
 }
 
 /* 다시하기 */
-.restart {
+#restart {
     display: none;
-
     background: #475569;
 }
 
-.restart:hover {
-    background: #64748b;
-}
+/* =========================
+   메인으로 버튼
+========================= */
 
-/* 메인으로 */
-.home {
+.main-button {
     display: block;
 
-    margin: 30px auto 0;
+    margin: 35px auto 0;
 
     background: #1e293b;
+
+    border: 1px solid #334155;
+
+    padding: 13px 28px;
 }
 
-.home:hover {
+.main-button:hover {
     background: #334155;
 }
 </style>
 </head>
+
 
 <body>
 
@@ -160,18 +144,32 @@ button:hover {
         동전이 멈추기 전에 앞면인지 뒷면인지 맞혀보세요!
     </p>
 
+
     <!-- 동전 -->
-    <div class="coin" id="coin">
+
+    <div
+        class="coin"
+        id="coin">
+
         🪙
+
     </div>
 
+
     <!-- 게임 시작 -->
-    <button id="startButton" onclick="startGame()">
+
+    <button
+        id="startButton"
+        onclick="startGame()">
+
         게임 시작
+
     </button>
 
-    <!-- 앞면 / 뒷면 -->
-    <div class="choice-buttons" id="choiceButtons">
+
+    <!-- 선택 -->
+
+    <div id="choices">
 
         <button onclick="choose('앞면')">
             앞면
@@ -183,23 +181,28 @@ button:hover {
 
     </div>
 
+
     <!-- 결과 -->
-    <div class="result" id="result"></div>
+
+    <div id="result"></div>
+
 
     <!-- 다시하기 -->
+
     <button
-        class="restart"
-        id="restartButton"
+        id="restart"
         onclick="restartGame()">
 
-        다시하기
+        🔄 다시하기
 
     </button>
 
-    <!-- 메인으로 -->
+
+    <!-- ⭐ 메인으로 -->
+
     <button
-        class="home"
-        onclick="location.href='index.html'">
+        class="main-button"
+        onclick="goHome()">
 
         🏠 메인으로
 
@@ -211,7 +214,7 @@ button:hover {
 <script>
 
 let answer = "";
-let gameStarted = false;
+let playing = false;
 
 
 /* =========================
@@ -220,11 +223,11 @@ let gameStarted = false;
 
 function startGame() {
 
-    if (gameStarted) {
+    if (playing) {
         return;
     }
 
-    gameStarted = true;
+    playing = true;
 
     const coin =
         document.getElementById("coin");
@@ -233,27 +236,25 @@ function startGame() {
         document.getElementById("startButton");
 
     const choices =
-        document.getElementById("choiceButtons");
+        document.getElementById("choices");
 
     const result =
         document.getElementById("result");
 
     const restart =
-        document.getElementById("restartButton");
+        document.getElementById("restart");
 
 
-    /* 화면 초기화 */
-
-    result.textContent = "";
+    startButton.style.display = "none";
 
     choices.style.display = "none";
 
     restart.style.display = "none";
 
-    startButton.style.display = "none";
+    result.textContent = "";
 
 
-    /* 실제 결과 랜덤 결정 */
+    /* 랜덤 결과 */
 
     answer =
         Math.random() < 0.5
@@ -261,14 +262,11 @@ function startGame() {
         : "뒷면";
 
 
-    /* 회전 초기화 */
+    /* 동전 회전 */
 
     coin.classList.remove("spin");
 
     void coin.offsetWidth;
-
-
-    /* 동전 회전 */
 
     coin.classList.add("spin");
 
@@ -285,27 +283,27 @@ function startGame() {
 
 
 /* =========================
-   앞면 / 뒷면 선택
+   선택
 ========================= */
 
 function choose(choice) {
 
+    if (!playing) {
+        return;
+    }
+
     const choices =
-        document.getElementById("choiceButtons");
+        document.getElementById("choices");
 
     const result =
         document.getElementById("result");
 
     const restart =
-        document.getElementById("restartButton");
+        document.getElementById("restart");
 
-
-    /* 선택 버튼 숨기기 */
 
     choices.style.display = "none";
 
-
-    /* 결과 */
 
     if (choice === answer) {
 
@@ -317,8 +315,6 @@ function choose(choice) {
 
     }
 
-
-    /* 다시하기 표시 */
 
     restart.style.display = "inline-block";
 
@@ -338,39 +334,40 @@ function restartGame() {
         document.getElementById("startButton");
 
     const choices =
-        document.getElementById("choiceButtons");
+        document.getElementById("choices");
 
     const result =
         document.getElementById("result");
 
     const restart =
-        document.getElementById("restartButton");
+        document.getElementById("restart");
 
 
-    /* 게임 상태 초기화 */
+    playing = false;
 
     answer = "";
 
-    gameStarted = false;
-
-
-    /* 동전 애니메이션 초기화 */
 
     coin.classList.remove("spin");
 
-
-    /* 결과 초기화 */
+    choices.style.display = "none";
 
     result.textContent = "";
-
-
-    /* 버튼 초기화 */
-
-    choices.style.display = "none";
 
     restart.style.display = "none";
 
     startButton.style.display = "inline-block";
+
+}
+
+
+/* =========================
+   ⭐ 메인으로
+========================= */
+
+function goHome() {
+
+    window.location.href = "index.html";
 
 }
 
