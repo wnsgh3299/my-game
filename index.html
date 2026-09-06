@@ -1,959 +1,441 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>GAME STUDIO</title>
 
 <style>
-
-/* =========================
-   RESET
-========================= */
-
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
-
-
-/* =========================
-   BODY
-========================= */
 
 body {
-
-    background: #070c18;
-
+    font-family: Arial, sans-serif;
+    background: #0b0b0f;
     color: white;
-
-    font-family:
-        Arial,
-        "Noto Sans KR",
-        sans-serif;
-
     min-height: 100vh;
-
 }
 
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container {
-
-    width: 92%;
-
-    max-width: 1400px;
-
-    margin: auto;
-
-    padding: 45px 0 80px;
-
+header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    border-bottom: 1px solid #222;
 }
 
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 
-/* =========================
-   HERO
-========================= */
+.menu {
+    color: #aaa;
+    font-size: 14px;
+}
 
 .hero {
-
-    min-height: 500px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #101a2d,
-            #172746
-        );
-
-    border: 1px solid #263653;
-
-    border-radius: 26px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
     text-align: center;
-
-    padding: 50px 25px;
-
-    margin-bottom: 65px;
-
-    transition: 0.3s;
-
+    padding: 70px 20px 55px;
+    border-bottom: 1px solid #222;
 }
-
-
-.hero.selected {
-
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 40px
-        rgba(37,99,235,0.12);
-
-}
-
-
-/* =========================
-   HERO ICON
-========================= */
 
 .hero-icon {
-
-    font-size: 95px;
-
-    margin-bottom: 25px;
-
+    font-size: 60px;
+    margin-bottom: 20px;
 }
 
-
-/* =========================
-   HERO TITLE
-========================= */
-
-.hero-title {
-
-    font-size: 52px;
-
-    font-weight: 800;
-
+.hero h1 {
+    font-size: 42px;
     margin-bottom: 15px;
-
 }
 
-
-/* =========================
-   HERO DESCRIPTION
-========================= */
-
-.hero-description {
-
-    color: #9db1d0;
-
-    font-size: 18px;
-
-    line-height: 1.6;
-
-    max-width: 650px;
-
+.hero p {
+    color: #999;
+    font-size: 17px;
     margin-bottom: 30px;
-
 }
-
-
-/* =========================
-   START BUTTON
-========================= */
 
 .start-button {
-
     display: none;
-
     border: none;
-
-    border-radius: 10px;
-
-    background: #2563eb;
-
-    color: white;
-
-    padding: 15px 40px;
-
-    font-size: 16px;
-
+    background: white;
+    color: black;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px;
     font-weight: bold;
-
     cursor: pointer;
-
-    transition: 0.2s;
-
 }
-
 
 .start-button:hover {
-
-    background: #3b82f6;
-
-    transform:
-        translateY(-2px);
-
+    background: #ddd;
 }
 
-
-/* =========================
-   GAMES TITLE
-========================= */
+.games-section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 50px 25px 80px;
+}
 
 .games-title {
-
-    font-size: 32px;
-
-    font-weight: 800;
-
-    margin-bottom: 28px;
-
+    font-size: 25px;
+    margin-bottom: 25px;
 }
-
-
-/* =========================
-   GAMES GRID
-========================= */
 
 .games {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 22px;
-
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
-
-
-/* =========================
-   GAME CARD
-========================= */
 
 .game-card {
-
-    min-height: 300px;
-
-    background: #111a2b;
-
-    border: 1px solid #263653;
-
-    border-radius: 18px;
-
-    padding: 30px 25px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    text-align: center;
-
+    background: #141419;
+    border: 1px solid #29292f;
+    border-radius: 14px;
+    padding: 28px;
+    min-height: 220px;
     transition: 0.2s;
-
 }
-
 
 .game-card:hover {
-
-    transform:
-        translateY(-5px);
-
-    border-color:
-        #3b82f6;
-
+    transform: translateY(-5px);
+    border-color: #555;
 }
-
-
-/* 선택된 카드 */
-
-.game-card.selected {
-
-    border-color:
-        #3b82f6;
-
-    box-shadow:
-        0 0 25px
-        rgba(37,99,235,0.15);
-
-}
-
-
-/* =========================
-   GAME ICON
-========================= */
 
 .game-icon {
-
-    font-size: 58px;
-
-    margin-bottom: 18px;
-
+    font-size: 42px;
+    margin-bottom: 20px;
 }
 
-
-/* =========================
-   GAME NAME
-========================= */
-
-.game-card h3 {
-
-    font-size: 22px;
-
-    margin-bottom: 12px;
-
+.game-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
-
-
-/* =========================
-   GAME DESCRIPTION
-========================= */
 
 .game-card p {
-
-    color: #91a7c5;
-
+    color: #888;
     font-size: 14px;
-
     line-height: 1.5;
-
-    min-height: 45px;
-
-    margin-bottom: 22px;
-
+    min-height: 42px;
 }
 
-
-/* =========================
-   SELECT BUTTON
-========================= */
-
-.select-button {
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #2563eb;
-
+.game-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #444;
+    background: transparent;
     color: white;
-
-    padding: 10px 28px;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
     cursor: pointer;
-
-    transition: 0.2s;
-
+    font-weight: bold;
 }
 
-
-.select-button:hover {
-
-    background: #3b82f6;
-
-    transform:
-        translateY(-2px);
-
+.game-button:hover {
+    background: white;
+    color: black;
 }
 
-
-/* =========================
-   COMING SOON
-========================= */
-
-.coming-button {
-
-    background: #3b465a;
-
+.coming {
+    color: #666;
     cursor: default;
-
 }
 
-
-.coming-button:hover {
-
-    background: #3b465a;
-
-    transform: none;
-
+.coming:hover {
+    background: transparent;
+    color: #666;
 }
 
+.selected {
+    border-color: white;
+}
 
-/* =========================
-   TABLET
-========================= */
+footer {
+    text-align: center;
+    color: #555;
+    padding: 30px;
+    border-top: 1px solid #222;
+    font-size: 13px;
+}
 
-@media (max-width: 950px) {
-
+@media (max-width: 900px) {
     .games {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
+        grid-template-columns: repeat(2, 1fr);
     }
-
 }
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 600px) {
 
-    .container {
-
-        width: 94%;
-
-        padding-top: 25px;
-
+    header {
+        padding: 0 20px;
     }
-
 
     .hero {
-
-        min-height: 430px;
-
-        margin-bottom: 50px;
-
+        padding: 55px 20px 45px;
     }
 
-
-    .hero-icon {
-
-        font-size: 75px;
-
+    .hero h1 {
+        font-size: 32px;
     }
-
-
-    .hero-title {
-
-        font-size: 36px;
-
-    }
-
-
-    .hero-description {
-
-        font-size: 15px;
-
-    }
-
 
     .games {
-
         grid-template-columns: 1fr;
-
     }
-
-
-    .games-title {
-
-        font-size: 28px;
-
-    }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
+<header>
+    <div class="logo">GAME STUDIO</div>
+    <div class="menu">GAMES</div>
+</header>
 
-<div class="container">
+<section class="hero">
 
+    <div class="hero-icon" id="heroIcon">🎮</div>
 
-<!-- =========================
-     HERO
-========================= -->
+    <h1 id="heroTitle">게임을 선택하세요</h1>
 
-<section
-    class="hero"
-    id="hero">
-
-
-    <div
-        class="hero-icon"
-        id="heroIcon">
-
-        🎮
-
-    </div>
-
-
-    <h1
-        class="hero-title"
-        id="heroTitle">
-
-        게임을 선택하세요
-
-    </h1>
-
-
-    <p
-        class="hero-description"
-        id="heroDescription">
-
+    <p id="heroDescription">
         아래에서 플레이할 게임을 선택해주세요.
-
     </p>
-
 
     <button
         class="start-button"
         id="startButton"
-        onclick="startSelectedGame()">
-
+        onclick="startGame()">
         GAME START
-
     </button>
-
 
 </section>
 
 
+<section class="games-section">
 
-<!-- =========================
-     GAMES
-========================= -->
+    <div class="games-title">
+        🎮 GAMES
+    </div>
 
-<h2 class="games-title">
+    <div class="games">
 
-    🎮 GAMES
+        <!-- 1. COIN FLIP -->
+        <div class="game-card" id="coinCard">
 
-</h2>
+            <div class="game-icon">🪙</div>
+
+            <h2>COIN FLIP</h2>
+
+            <p>
+                동전을 던지고 결과를 맞혀보세요.
+            </p>
+
+            <button
+                class="game-button"
+                onclick="selectGame('coin')">
+                SELECT
+            </button>
+
+        </div>
 
 
+        <!-- 2. MINESWEEPER -->
+        <div class="game-card" id="mineCard">
 
-<div class="games">
+            <div class="game-icon">💣</div>
+
+            <h2>MINESWEEPER</h2>
+
+            <p>
+                지뢰를 피하면서 모든 칸을 찾아보세요.
+            </p>
+
+            <button
+                class="game-button"
+                onclick="selectGame('mine')">
+                SELECT
+            </button>
+
+        </div>
 
 
-<!-- =========================
-     COIN FLIP
-========================= -->
+        <!-- 3. SNAKE -->
+        <div class="game-card" id="snakeCard">
 
-<div
-    class="game-card"
-    id="coinCard">
+            <div class="game-icon">🐍</div>
+
+            <h2>SNAKE</h2>
+
+            <p>
+                뱀을 움직여 먹이를 먹고 최고 점수에 도전하세요.
+            </p>
+
+            <button
+                class="game-button"
+                onclick="selectGame('snake')">
+                SELECT
+            </button>
+
+        </div>
 
 
-    <div class="game-icon">
+        <!-- 4. SPACE RUN -->
+        <div class="game-card">
 
-        🪙
+            <div class="game-icon">🚀</div>
+
+            <h2>SPACE RUN</h2>
+
+            <p>
+                우주를 달리며 장애물을 피하는 게임.
+            </p>
+
+            <button class="game-button coming">
+                COMING SOON
+            </button>
+
+        </div>
+
+
+        <!-- 5. PUZZLE -->
+        <div class="game-card">
+
+            <div class="game-icon">🧩</div>
+
+            <h2>PUZZLE</h2>
+
+            <p>
+                다양한 퍼즐을 풀어보세요.
+            </p>
+
+            <button class="game-button coming">
+                COMING SOON
+            </button>
+
+        </div>
+
+
+        <!-- 6. RACING -->
+        <div class="game-card">
+
+            <div class="game-icon">🏎️</div>
+
+            <h2>RACING</h2>
+
+            <p>
+                빠르게 달려 최고의 기록을 만들어보세요.
+            </p>
+
+            <button class="game-button coming">
+                COMING SOON
+            </button>
+
+        </div>
 
     </div>
 
+</section>
 
-    <h3>
 
-        COIN FLIP
-
-    </h3>
-
-
-    <p>
-
-        회전하는 동전을 보고
-        앞면인지 뒷면인지 맞혀보세요.
-
-    </p>
-
-
-    <button
-        class="select-button"
-        onclick="selectGame('coin')">
-
-        SELECT
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =========================
-     MINESWEEPER
-========================= -->
-
-<div
-    class="game-card"
-    id="mineCard">
-
-
-    <div class="game-icon">
-
-        💣
-
-    </div>
-
-
-    <h3>
-
-        MINESWEEPER
-
-    </h3>
-
-
-    <p>
-
-        지뢰를 피해 모든 칸을
-        안전하게 열어보세요.
-
-    </p>
-
-
-    <button
-        class="select-button"
-        onclick="selectGame('mine')">
-
-        SELECT
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =========================
-     SNAKE
-========================= -->
-
-<div
-    class="game-card"
-    id="snakeCard">
-
-
-    <div class="game-icon">
-
-        🐍
-
-    </div>
-
-
-    <h3>
-
-        SNAKE
-
-    </h3>
-
-
-    <p>
-
-        먹이를 먹으며
-        최대한 길게 성장하세요.
-
-    </p>
-
-
-    <button
-        class="select-button"
-        onclick="selectGame('snake')">
-
-        SELECT
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =========================
-     SPACE RUN
-========================= -->
-
-<div class="game-card">
-
-
-    <div class="game-icon">
-
-        🚀
-
-    </div>
-
-
-    <h3>
-
-        SPACE RUN
-
-    </h3>
-
-
-    <p>
-
-        우주선을 조종하며
-        장애물을 피해보세요.
-
-    </p>
-
-
-    <button
-        class="select-button coming-button">
-
-        COMING SOON
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =========================
-     PUZZLE
-========================= -->
-
-<div class="game-card">
-
-
-    <div class="game-icon">
-
-        🧩
-
-    </div>
-
-
-    <h3>
-
-        PUZZLE
-
-    </h3>
-
-
-    <p>
-
-        다양한 퍼즐을 풀어
-        최고의 기록에 도전하세요.
-
-    </p>
-
-
-    <button
-        class="select-button coming-button">
-
-        COMING SOON
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =========================
-     RACING
-========================= -->
-
-<div class="game-card">
-
-
-    <div class="game-icon">
-
-        🏎️
-
-    </div>
-
-
-    <h3>
-
-        RACING
-
-    </h3>
-
-
-    <p>
-
-        빠르게 달리며
-        최고의 기록을 만들어보세요.
-
-    </p>
-
-
-    <button
-        class="select-button coming-button">
-
-        COMING SOON
-
-    </button>
-
-
-</div>
-
-
-</div>
-
-</div>
-
+<footer>
+    GAME STUDIO © 2026
+</footer>
 
 
 <script>
 
-/* =========================
-   현재 선택된 게임
-========================= */
+let selectedGame = "";
 
-let selectedGame = null;
-
-
-/* =========================
-   게임 선택
-========================= */
 
 function selectGame(game) {
 
     selectedGame = game;
 
+    const heroIcon = document.getElementById("heroIcon");
+    const heroTitle = document.getElementById("heroTitle");
+    const heroDescription = document.getElementById("heroDescription");
+    const startButton = document.getElementById("startButton");
 
-    const hero =
-        document.getElementById("hero");
+    document.getElementById("coinCard").classList.remove("selected");
+    document.getElementById("mineCard").classList.remove("selected");
+    document.getElementById("snakeCard").classList.remove("selected");
 
-    const icon =
-        document.getElementById("heroIcon");
-
-    const title =
-        document.getElementById("heroTitle");
-
-    const description =
-        document.getElementById("heroDescription");
-
-    const startButton =
-        document.getElementById("startButton");
-
-
-    /* 모든 카드 선택 해제 */
-
-    document
-        .querySelectorAll(".game-card")
-        .forEach(card => {
-
-            card.classList.remove("selected");
-
-        });
-
-
-    /* =========================
-       COIN FLIP
-    ========================= */
 
     if (game === "coin") {
 
-        icon.textContent = "🪙";
+        heroIcon.innerText = "🪙";
 
-        title.textContent = "COIN FLIP";
+        heroTitle.innerText = "COIN FLIP";
 
-        description.textContent =
-            "회전하는 동전을 보고 앞면인지 뒷면인지 맞혀보세요.";
+        heroDescription.innerText =
+            "동전을 던지고 결과를 맞혀보세요.";
 
-        startButton.style.display =
-            "block";
-
-        document
-            .getElementById("coinCard")
+        document.getElementById("coinCard")
             .classList.add("selected");
 
     }
 
-
-    /* =========================
-       MINESWEEPER
-    ========================= */
 
     if (game === "mine") {
 
-        icon.textContent = "💣";
+        heroIcon.innerText = "💣";
 
-        title.textContent = "MINESWEEPER";
+        heroTitle.innerText = "MINESWEEPER";
 
-        description.textContent =
-            "지뢰를 피해 모든 칸을 안전하게 열어보세요.";
+        heroDescription.innerText =
+            "지뢰를 피해 모든 칸을 찾아보세요.";
 
-        startButton.style.display =
-            "block";
-
-        document
-            .getElementById("mineCard")
+        document.getElementById("mineCard")
             .classList.add("selected");
 
     }
 
-
-    /* =========================
-       SNAKE
-    ========================= */
 
     if (game === "snake") {
 
-        icon.textContent = "🐍";
+        heroIcon.innerText = "🐍";
 
-        title.textContent = "SNAKE";
+        heroTitle.innerText = "SNAKE";
 
-        description.textContent =
-            "먹이를 먹으며 최대한 길게 성장하세요.";
+        heroDescription.innerText =
+            "먹이를 먹으며 최고 점수에 도전하세요.";
 
-        startButton.style.display =
-            "block";
-
-        document
-            .getElementById("snakeCard")
+        document.getElementById("snakeCard")
             .classList.add("selected");
 
     }
 
 
-    hero.classList.add("selected");
-
-
-    /* 위쪽으로 이동 */
-
-    hero.scrollIntoView({
-
-        behavior: "smooth",
-
-        block: "center"
-
-    });
+    startButton.style.display = "inline-block";
 
 }
 
 
-/* =========================
-   GAME START
-========================= */
-
-function startSelectedGame() {
+function startGame() {
 
     if (selectedGame === "coin") {
 
-        window.location.href =
-            "game.html";
+        window.location.href = "game.html";
 
     }
 
+    else if (selectedGame === "mine") {
 
-    if (selectedGame === "mine") {
-
-        window.location.href =
-            "minesweeper.html";
+        window.location.href = "minesweeper.html";
 
     }
 
+    else if (selectedGame === "snake") {
 
-    if (selectedGame === "snake") {
-
-        window.location.href =
-            "snake.html";
+        window.location.href = "snake.html";
 
     }
 
@@ -961,7 +443,5 @@ function startSelectedGame() {
 
 </script>
 
-
 </body>
-
 </html>
